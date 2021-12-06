@@ -1,0 +1,268 @@
+{
+	"info": {
+		"_postman_id": "6863678e-f1b1-49c7-bc07-95af848c970b",
+		"name": "User",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET",
+			"item": [
+				{
+					"name": "list-users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var actualResp = JSON.parse(responseBody);",
+									"",
+									"var result=tests[\"Check Response and Status Code\"] = actualResp.data[0].id == 1 && actualResp.data[1].id == 2 && actualResp.data[0].email == \"george.bluth@reqres.in\" && actualResp.data[1].email == \"janet.weaver@reqres.in\" && responseCode.code == 200;",
+									"",
+									"if (!result){",
+									"    console.log(actualResp);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/users?page=1&per_page=2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "per_page",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "single-user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var actualResp = JSON.parse(responseBody);",
+									"",
+									"var result=tests[\"Check Response and Status Code\"] = actualResp.data.id == 2 &&",
+									"    actualResp.data.email == \"janet.weaver@reqres.in\" && actualResp.data.first_name == \"Janet\" && responseCode.code == 200;",
+									"",
+									"if (!result){",
+									"    console.log(actualResp);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/users/2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "POST",
+			"item": [
+				{
+					"name": "create-user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var actualResp = JSON.parse(responseBody);",
+									"",
+									"var result=tests[\"Check Response and Status Code\"] = actualResp.name == \"morpheus\" &&",
+									"    actualResp.job == \"leader\" && responseCode.code == 201;",
+									"",
+									"if (!result){",
+									"    console.log(actualResp);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"morpheus\",\n    \"job\": \"leader\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PUT",
+			"item": [
+				{
+					"name": "update-user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var actualResp = JSON.parse(responseBody);",
+									"",
+									"var result=tests[\"Check Response and Status Code\"] = actualResp.name == \"berkay\" &&",
+									"    actualResp.job == \"tester\" && responseCode.code == 200;",
+									"",
+									"if (!result){",
+									"    console.log(actualResp);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"berkay\",\n    \"job\": \"tester\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/users/2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DELETE",
+			"item": [
+				{
+					"name": "delete-user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var result=tests[\"Check Response and Status Code\"] = responseCode.code == 204;",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/users/2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://reqres.in"
+		}
+	]
+}
